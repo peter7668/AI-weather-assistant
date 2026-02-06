@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Weather Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🌦️ AI Weather Assistant</h1>
+
+    <div class="section">
+        <h2>📍 City Weather</h2>
+        <form method="POST" action="/weather">
+            <input type="text" name="city" placeholder="Enter city name" required>
+            <button type="submit">Check</button>
+        </form>
+
+        {% if weather %}
+            <div class="result">{{ weather }}</div>
+        {% endif %}
+    </div>
+
+ <div class="section">
+    <h2>🤖 Ask Naturally</h2>
+
+    <form method="POST" action="/ask">
+        <input type="text" id="question" name="question"
+               placeholder="Aaj Delhi ka weather?" required>
+
+        <button type="button" onclick="startVoice()">🎤</button>
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if reply %}
+        <div class="result">{{ reply }}</div>
+    {% endif %}
+</div>
+
+
+    <div class="footer">
+        Made with ❤️ using Flask & AI
+    </div>
+</div>
+<script>
+function startVoice() {
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("Voice recognition supported nahi hai is browser me ❌");
+        return;
+    }
+
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = "hi-IN"; // Hindi
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onstart = function () {
+        console.log("Listening...");
+    };
+
+    recognition.onresult = function (event) {
+        const text = event.results[0][0].transcript;
+        document.getElementById("question").value = text;
+    };
+
+    recognition.onerror = function (event) {
+        console.error("Error:", event.error);
+    };
+
+    recognition.start();
+}
+</script>
+
+</body>
+</html>
+
+
