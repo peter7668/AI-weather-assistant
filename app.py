@@ -3,14 +3,18 @@ import requests
 import re 
 import pyttsx3
 import threading
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 
 from openai import OpenAI
-client = OpenAI(api_key="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")
-
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = Flask(__name__)
 
-API_KEY = "b38b1c72b88aa4669b8281f20950ad40"
+API_KEY = os.getenv("WEATHER_API_KEY")
 import pyttsx3
 
 
