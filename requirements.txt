@@ -6,3 +6,9 @@ gunicorn
 python-dotenv
 
 
+python-dotenv
+gunicorn
+flask
+requests
+pyttsx3
+openai
