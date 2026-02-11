@@ -3,4 +3,6 @@ requests
 pyttsx3
 openai
 gunicorn
+python-dotenv
+
 
